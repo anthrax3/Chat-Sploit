@@ -6,6 +6,8 @@
  * Author: malwaffe
  */
 
+defined( 'CHAT_SPLOIT__WEBDIS' ) or define( 'CHAT_SPLOIT__WEBDIS', 'http://127.0.0.1:7379/' );
+
 class Chat_Sploit {
 	static $instance;
 
@@ -112,7 +114,32 @@ class Chat_Sploit {
 			'user_id' => $user->ID,
 		) );
 
-		die( "$comment_id" );
+		// End HTTP connection immediately.
+
+		while ( @ob_end_clean() );
+
+		header('Content-Encoding: none');
+		header('Content-Length: ' . strlen( $comment_id ) );
+		header('Connection: close');
+
+		echo $comment_id;
+
+		flush();
+
+		// Process stats.
+
+		if ( ! CHAT_SPLOIT__WEBDIS ) {
+			exit;
+		}
+
+		$context = stream_context_create( array(
+			'http' => array(
+				'timeout' => 1,
+			),
+		) );
+
+		// Increment the chat counter for this user
+		file_get_contents( CHAT_SPLOIT__WEBDIS . "HINCRBY/chats/{$user->user_login}/1", false, $context );
 	}
 
 	/*
