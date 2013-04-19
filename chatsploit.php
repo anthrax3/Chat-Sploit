@@ -99,6 +99,9 @@ class Chat_Sploit {
 		// <chat>some text</chat>
 		$text = (string) simplexml_load_file( "php://input" );
 
+		// Make links clickable.
+		$text = preg_replace( '#https?://\S+(?=\s|$)#e', 'Chat_Sploit::safe_clickable( "\\0" )', $text );
+
 		$user = wp_get_current_user();
 
 		$comment_id = (int) wp_insert_comment( array(
@@ -136,6 +139,10 @@ class Chat_Sploit {
 		}
 
 		die( json_encode( compact( 'since', 'chats' ) ) );
+	}
+
+	static function safe_clickable( $url ) {
+		return '<a href="' . esc_url( $url ) . '" target="_blank">' . esc_url( $url ) . '</a>';
 	}
 }
 
