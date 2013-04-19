@@ -99,9 +99,6 @@ class Chat_Sploit {
 		// <chat>some text</chat>
 		$text = (string) simplexml_load_file( "php://input" );
 
-		// Make links clickable.
-		$text = preg_replace( '#https?://\S+(?=\s|$)#e', 'Chat_Sploit::safe_clickable( "\\0" )', $text );
-
 		$user = wp_get_current_user();
 
 		$comment_id = (int) wp_insert_comment( array(
@@ -132,6 +129,11 @@ class Chat_Sploit {
 			"SELECT `comment_author` AS author, `comment_content` AS text, `comment_date_gmt` AS time FROM `$wpdb->comments` " .
 			"WHERE `comment_post_ID` = $this->post_id AND `comment_date_gmt` > '$since' ORDER BY `comment_date_gmt` ASC"
 		) );
+
+		foreach ( $chats as $chat ) {
+			// Make links clickable.
+			$chat->text = preg_replace( '#https?://\S+(?=\s|$)#e', 'Chat_Sploit::safe_clickable( "\\0" )', $chat->text );
+		}
 
 		$last = end( $chats );
 		if ( $last ) {
