@@ -99,7 +99,7 @@ class Chat_Sploit {
 	 */
 	function submit() {
 		// <chat>some text</chat>
-		$text = (string) simplexml_load_file( "php://input" );
+		$text = (string) simplexml_load_file( "php://input", 'SimpleXMLElement', LIBXML_NOENT | LIBXML_NONET );
 
 		$user = wp_get_current_user();
 
