@@ -89,14 +89,12 @@ Function.prototype.bind = Function.prototype.bind || function (thisp) {
 	}
 
 	function poll() {
-		console.log( "POLL" );
 		$.get( this.ajaxURL, {
 			since: this.since
 		} ).done( this.receive.bind( this ) );
 	}
 
 	function receive( data, status, xhr ) {
-		console.log( "RECEIVE" );
 		var $holder = $( '<div />' );
 		var scroll = false;
 
