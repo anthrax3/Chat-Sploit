@@ -159,7 +159,10 @@ class Chat_Sploit {
 
 		foreach ( $chats as $chat ) {
 			// Make links clickable.
-			$chat->text = preg_replace( '#https?://\S+(?=\s|$)#e', 'Chat_Sploit::safe_clickable( "\\0" )', $chat->text );
+			$pieces = preg_split( '#<a\s+.*?>.*?<\s*/\s*a\s*>#i', $chat->text, -1, PREG_SPLIT_NO_EMPTY );
+			foreach ( array_unique( $pieces ) as $piece ) {
+				$chat->text = str_replace( $piece, $new = preg_replace( '#https?://\S+(?=\s|$)#e', 'Chat_Sploit::safe_clickable( "\\0" )', $piece ), $chat->text );
+			}
 		}
 
 		$last = end( $chats );

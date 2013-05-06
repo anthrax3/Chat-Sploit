@@ -14,12 +14,18 @@
 	min-height: 100%;
 }
 
-.widget_chat_sploit dt, .widget_chat_sploit dd {
+.widget_chat_sploit dt {
+	margin: 0;
+	padding: 0;
+	font-weight: bold;
+}
+
+.widget_chat_sploit dd {
 	margin: 0;
 	padding: 0;
 }
 
-.widget_chat_sploit textarea, .widget_chat_sploit .chat {
+.widget_chat_sploit textarea, .widget_chat_sploit .chat, .widget_chat_sploit dl {
 	box-sizing: border-box;
 	width: 100%;
 }
