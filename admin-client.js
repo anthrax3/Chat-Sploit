@@ -7,7 +7,9 @@ var casper = require('casper').create( {
 
 var x = require('casper').selectXPath;
 
-casper.start( 'http://127.0.0.1:9080/wordpress/wp-login.php?redirect_to=http://127.0.0.1:9080/wordpress/', function() {
+var WPURL = 'http://127.0.0.1:9080/wordpress/';
+
+casper.start( WPURL + 'wp-login.php?redirect_to=' + WPURL, function() {
 	this.fill('form', { log: 'admin', pwd: 'admin' }, true );
 } );
 
