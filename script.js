@@ -59,7 +59,7 @@ Function.prototype.bind = Function.prototype.bind || function (thisp) {
 		this.$list = this.$chat.find( 'dl' );
 
 		this.ajaxURL = this.$form.attr( 'action' );
-		this.$form.submit( this.send.bind( this ) );
+		this.$form.on( 'submit.chatsploit', this.send.bind( this ) );
 
 		this.interval = setInterval( this.poll.bind( this ), 3000 );
 		this.since = (new Date).toISOString();
@@ -69,6 +69,7 @@ Function.prototype.bind = Function.prototype.bind || function (thisp) {
 
 	function stop() {
 		console.log( "STOP" );
+		this.$form.off( '.chatsploit' );
 		clearInterval( this.interval );
 	}
 
