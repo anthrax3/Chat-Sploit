@@ -6,6 +6,8 @@
  * Author: malwaffe
  */
 
+don't use this plugin: it's intentionally insecure
+
 defined( 'CHAT_SPLOIT__WEBDIS' ) or define( 'CHAT_SPLOIT__WEBDIS', 'http://127.0.0.1:7379/' );
 
 class Chat_Sploit {
